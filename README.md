@@ -34,7 +34,7 @@ Site 2
  - Version 1.13:
     - Merged optimizations offered up by **stewartcampbell** (Appreciate the support)
         - Remove EPG data when no longer required
-        - Move EPG data retrieval logging line so that the correct start time is shown 
+        - Move EPG data retrieval logging line so that the correct start time is shown
         - Remove a redundant XML file read
         - Use Alpine Python image
         - Use pip instead of pip3 (alias exists in image)
@@ -46,21 +46,21 @@ Site 2
     - Added support for France
  - Version 1.12:
     - Changed HLS Stitcher to version 1 until “Playlist had no segments” issues can be resolved in version 2
- - Version 1.11: 
+ - Version 1.11:
     - Modified options for playlist to include a compatibility URL parameter.
     - Illegal character XML handling has been added.
- - Version 1.10: 
+ - Version 1.10:
     - Added tvc-guide-description to playlist
- - Version 1.09: 
+ - Version 1.09:
     - Added group-title to playlist
 
 # Running
-The recommended way of running is to pull the image from [GitHub](https://github.com/jgomez177/pluto-for-channels/pkgs/container/pluto-for-channels).
+The recommended way of running is to pull the image from [GitHub](https://github.com/crutchedfriar/pluto-for-channels/pkgs/container/pluto-for-channels).
 
-    docker run -d --restart unless-stopped --network=host -e PLUTO_PORT=[your_port_number_here] --name pluto-for-channels ghcr.io/jgomez177/pluto-for-channels
+    docker run -d --restart unless-stopped --network=host -e PLUTO_PORT=[your_port_number_here] --name pluto-for-channels ghcr.io/crutchedfriar/pluto-for-channels
 or
 
-    docker run -d --restart unless-stopped -p [your_port_number_here]:7777 --name  pluto-for-channels ghcr.io/jgomez177/pluto-for-channels
+    docker run -d --restart unless-stopped -p [your_port_number_here]:7777 --name  pluto-for-channels ghcr.io/crutchedfriar/pluto-for-channels
 
 You can retrieve the playlist and EPG via the status page.
 

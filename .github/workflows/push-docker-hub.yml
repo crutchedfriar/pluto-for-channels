@@ -35,7 +35,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ghcr.io/jgomez177/pluto-for-channels
+            ghcr.io/crutchedfriar/pluto-for-channels
           flavors: |
             latest=false
           tags: |
