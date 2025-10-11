@@ -34,6 +34,12 @@ providers = {
     provider: importlib.import_module(provider).Client(),
 }
 
+def sanitize(s):
+    return remove_non_printable(replace_double_quotes(s))
+
+def replace_double_quotes(s):
+    return s.replace('"', "'")
+
 def remove_non_printable(s):
     return ''.join([char for char in s if not unicodedata.category(char).startswith('C')])
 
@@ -139,7 +145,7 @@ def playlist(provider, country_code):
 
     host = request.host
     channel_id_format = request.args.get('channel_id_format','').lower()
-    
+
     if err is not None:
         return err, 500
     stations = sorted(stations, key = lambda i: i.get('number', 0))
@@ -160,7 +166,7 @@ def playlist(provider, country_code):
         m3u += f" tvg-logo=\"{''.join(map(str, s.get('logo', [])))}\"" if s.get('logo') else ""
         m3u += f" tvg-name=\"{''.join(map(str, s.get('tmsid', [])))}\"" if s.get('tmsid') else ""
         m3u += f" tvc-guide-title=\"{''.join(map(str, s.get('name', [])))}\"" if s.get('name') else ""
-        m3u += f" tvc-guide-description=\"{remove_non_printable(''.join(map(str, s.get('summary', []))))}\"" if s.get('summary') else ""
+        m3u += f" tvc-guide-description=\"{sanitize(''.join(map(str, s.get('summary', []))))}\"" if s.get('summary') else ""
         m3u += f" tvg-shift=\"{''.join(map(str, s.get('timeShift', [])))}\"" if s.get('timeShift') else ""
         m3u += f",{s.get('name') or s.get('call_sign')}\n"
         m3u += f"{url}\n"
@@ -186,7 +192,7 @@ def watch(provider, country_code, id):
     base_path = f"/stitch/hls/channel/{id}/master.m3u8"
 
     jwt_required_list = ['625f054c5dfea70007244612', '625f04253e5f6c000708f3b7', '5421f71da6af422839419cb3']
-    
+
     params = {'advertisingId': '',
               'appName': 'web',
               'appVersion': 'unknown',
@@ -253,12 +259,12 @@ def epg_xml(provider, country_code, filename):
         # Check if the provided filename is allowed
         # if filename not in ALLOWED_EPG_FILENAMES:
             return "Invalid filename", 400
-        
+
         # Specify the file path based on the provider and filename
         file_path = f'{filename}'
 
         # Return the file without explicitly opening it
-        if filename in ALLOWED_EPG_FILENAMES: 
+        if filename in ALLOWED_EPG_FILENAMES:
             return send_file(file_path, as_attachment=False, download_name=file_path, mimetype='text/plain')
         elif filename in ALLOWED_GZ_FILENAMES:
             return send_file(file_path, as_attachment=True, download_name=file_path)
