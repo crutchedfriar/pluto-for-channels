@@ -191,7 +191,7 @@ def watch(provider, country_code, id):
     stitcher = "https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv"
     base_path = f"/stitch/hls/channel/{id}/master.m3u8"
 
-    jwt_required_list = ['625f054c5dfea70007244612', '625f04253e5f6c000708f3b7', '5421f71da6af422839419cb3']
+    jwt_not_required_list = []
 
     params = {'advertisingId': '',
               'appName': 'web',
@@ -212,7 +212,7 @@ def watch(provider, country_code, id):
               'serverSideAds': 'true'
     }
 
-    if id in jwt_required_list:
+    if id not in jwt_not_required_list:
         resp, error= providers[provider].resp_data(country_code)
         if error: return error, 500
         # print(json.dumps(resp, indent=2))
