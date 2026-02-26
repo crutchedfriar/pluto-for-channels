@@ -503,7 +503,7 @@ class Client:
             return None
 
         compressed_file_path = f"{xml_file_path}.gz"
-        root = ET.Element("tv", attrib={"generator-info-name": "jgomez177", "generated-ts": ""})
+        root = ET.Element("tv", attrib={"generator-info-name": "crutchedfriar", "generated-ts": ""})
 
         # Create Channel Elements from list of Stations
         for station in station_list:
